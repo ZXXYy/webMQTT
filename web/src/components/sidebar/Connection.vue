@@ -18,17 +18,21 @@
                     <a-form-item ref="port" label="Broker Port" name="port" placeholder="1883">
                         <a-input v-model:value="formState.port" />
                     </a-form-item>
-                    <a-form-item ref="id" label="Client ID" name="id">
-                        <a-input v-model:value="formState.id" />
-                    </a-form-item>
+
 
                     <a-button type="primary">Users Credentials</a-button>
                     <a-divider />
-                    <a-form-item ref="user" label="User Name" name="user">
-                        <a-input v-model:value="formState.user" />
+                    <a-form-item ref="productKey" label="Product Key" name="productKey">
+                        <a-input v-model:value="formState.productKey" />
                     </a-form-item>
-                    <a-form-item ref="pwd" label="Password" name="pwd">
-                        <a-input v-model:value="formState.pwd" type="password" />
+                    <a-form-item ref="productSecret" label="Product Secret" name="productSecret">
+                        <a-input v-model:value="formState.productSecret" type="productSecret" />
+                    </a-form-item>
+                    <a-form-item ref="deviceName" label="Device Name" name="deviceName">
+                        <a-input v-model:value="formState.deviceName" type="deviceName" />
+                    </a-form-item>
+                    <a-form-item ref="deviceSecret" label="Device Secret" name="deviceSecret">
+                        <a-input v-model:value="formState.deviceSecret" type="deviceSecret" />
                     </a-form-item>
 
                     <a-form-item :wrapper-col="{ span: 14, offset: 4 }">
@@ -43,14 +47,16 @@
 
 <script lang="ts">
     import { ValidateErrorEntity } from 'ant-design-vue/es/form/interface';
+    import { notification } from 'ant-design-vue';
     import { Moment } from 'moment';
     import { defineComponent, reactive, ref, toRaw, UnwrapRef } from 'vue';
     interface FormState {
         addr: string;
         port: number;
-        id: string;
-        user: string;
-        pwd: string;
+        productKey: string;
+        productSecret: string;
+        deviceName: string;
+        deviceSecret: string;
     }
     export default defineComponent({
         setup() {
@@ -58,19 +64,20 @@
             const formState: UnwrapRef<FormState> = reactive({
                 addr: '',
                 port: 1883,
-                id: '',
-                user: '',
-                pwd: '',
-
+                productKey: '',
+                productSecret: '',
+                deviceName: '',
+                deviceSecret: '',
             });
             const rules = {
                 addr: [
                     { required: true, message: 'Please input Broker Address', trigger: 'blur' }
                 ],
                 port: [{ required: true, message: 'Please input Broker port', trigger: 'blur' }],
-                id: [{ required: true, message: 'Please input client ID', trigger: 'blur'}],
-                user: [{required: true, message: 'Please input user name', trigger: 'blur'}],
-                pwd: [{required: true, message: 'Please input password', trigger: 'blur'}],
+                productKey: [{ required: true, message: 'Please input productKey', trigger: 'blur'}],
+                productSecret: [{required: true, message: 'Please input productSecret', trigger: 'blur'}],
+                deviceName: [{required: true, message: 'Please input deviceName', trigger: 'blur'}],
+                deviceSecret: [{required: true, message: 'Please input deviceSecret', trigger: 'blur'}],
 
             };
             const onSubmit = () => {
@@ -78,6 +85,14 @@
                     .validate()
                     .then(() => {
                         console.log('values', formState, toRaw(formState));
+                        notification.open({
+                            message: 'Notification Title',
+                            description:
+                                'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+                            onClick: () => {
+                                console.log('Notification Clicked!');
+                            },
+                        });
                     })
                     .catch((error: ValidateErrorEntity<FormState>) => {
                         console.log('error', error);
