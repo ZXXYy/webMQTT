@@ -48,8 +48,9 @@
 <script lang="ts">
     import { ValidateErrorEntity } from 'ant-design-vue/es/form/interface';
     import { notification } from 'ant-design-vue';
-    import { Moment } from 'moment';
     import { defineComponent, reactive, ref, toRaw, UnwrapRef } from 'vue';
+    import axios from 'axios';
+    import qs from 'query-string';
     interface FormState {
         addr: string;
         port: number;
@@ -85,6 +86,14 @@
                     .validate()
                     .then(() => {
                         console.log('values', formState, toRaw(formState));
+                        axios.post("http://127.0.0.1:8080/connect",
+                            qs.stringify(formState)
+                        ).then(
+                            (response) => {
+                                const data = response.data;
+                                console.log(response);
+                            });
+
                         notification.open({
                             message: 'Notification Title',
                             description:
