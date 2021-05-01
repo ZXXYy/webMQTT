@@ -17,9 +17,18 @@
                                     {{item.name}}
                                 </span>
                                 <span>
-                                    <a-popover v-model:visible="visible" title="Title" trigger="click">
+                                    <a-popover :key="item.name" trigger="click">
+                                        <template #title>{{item.name}}</template>
                                         <template #content>
-                                          <a @click="onClick(item.key)">Close</a>
+                                            <a-input-search
+                                                  v-model:value="newValue"
+                                                  placeholder="请输入值"
+                                                  @search="onSearch(item.key)"
+                                              >
+                                              <template #enterButton>
+                                                <a-button>上传</a-button>
+                                              </template>
+                                            </a-input-search>
                                         </template>
                                         <a-button type="link" style="float: right" >上传数据</a-button>
                                     </a-popover>
@@ -60,11 +69,14 @@
         name: 'Home',
         setup(){
             console.log("setup");
-            const onClick = (key: number) => {
+
+            const newValue = ref<string>('');
+            const onSearch = (key: number) => {
+                console.log('or use this.value', newValue.value);
                 const tempData = listData.filter((listData: { key: number; }) => listData.key == key);
 
                 axios.post("http://127.0.0.1:8080/model",
-                    qs.stringify(tempData)
+                    qs.stringify({tempData, newValue})
                 ).then(
                     (response) => {
                         const data = response.data;
@@ -94,10 +106,10 @@
                     },
                     pageSize: 3,
                 },
-                onClick,
                 hide,
                 visible,
-
+                newValue,
+                onSearch
             }
         }
 
