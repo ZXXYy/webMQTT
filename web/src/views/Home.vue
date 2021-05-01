@@ -8,57 +8,38 @@
               :style="{ height: '100%', borderRight: 0 }"
       >
         <a-sub-menu key="sub1">
-          <span slot="title"><a-icon type="user" />subnav 1111</span>
-          <a-menu-item key="1">
-            option1
-          </a-menu-item>
-          <a-menu-item key="2">
-            option2
-          </a-menu-item>
-          <a-menu-item key="3">
-            option3
-          </a-menu-item>
-          <a-menu-item key="4">
-            option4
-          </a-menu-item>
+          <span slot="title"><a-icon type="user" />设置</span>
+          <router-link to="/Connection">
+            <a-menu-item key="/Connection">
+              连接设置
+            </a-menu-item>
+          </router-link>
+
+          <router-link to="/PhyModel">
+            <a-menu-item key="/PhyModel">
+              导入物模型
+            </a-menu-item>
+          </router-link>
+          <router-link to="/PubSub">
+            <a-menu-item key="/PubSub">
+              订阅主题
+            </a-menu-item>
+          </router-link>
         </a-sub-menu>
         <a-sub-menu key="sub2">
-          <span slot="title"><a-icon type="laptop" />subnav 2</span>
-          <a-menu-item key="5">
-            option5
-          </a-menu-item>
-          <a-menu-item key="6">
-            option6
-          </a-menu-item>
-          <a-menu-item key="7">
-            option7
-          </a-menu-item>
-          <a-menu-item key="8">
-            option8
-          </a-menu-item>
+          <span slot="title"><a-icon type="laptop" />模拟调试</span>
+          <router-link to="/Model">
+            <a-menu-item key="/Model">
+              物模型
+            </a-menu-item>
+          </router-link>
+
         </a-sub-menu>
-        <a-sub-menu key="sub3">
-          <span slot="title"><a-icon type="notification" />subnav 3</span>
-          <a-menu-item key="9">
-            option9
-          </a-menu-item>
-          <a-menu-item key="10">
-            option10
-          </a-menu-item>
-          <a-menu-item key="11">
-            option11
-          </a-menu-item>
-          <a-menu-item key="12">
-            option12
-          </a-menu-item>
-        </a-sub-menu>
+
       </a-menu>
     </a-layout-sider>
-    <a-layout-content
-            :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
-    >
-      Content
-    </a-layout-content>
+    <router-view/>
+
   </a-layout>
 </template>
 

@@ -10,7 +10,7 @@
             <a-menu-item key="/">
                 <router-link to="/">首页</router-link>
             </a-menu-item>
-            <a-menu-item key="/admin/ebook">
+            <a-menu-item key="/simulate">
                 <router-link to="/simulate">模拟器</router-link>
             </a-menu-item>
             <a-menu-item key="/about">
