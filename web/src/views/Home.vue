@@ -3,12 +3,15 @@
     <a-layout-sider width="200" style="background: #fff">
       <a-menu
               mode="inline"
-              :default-selected-keys="['1']"
-              :default-open-keys="['sub1']"
-              :style="{ height: '100%', borderRight: 0 }"
+              style="height: 100%"
       >
         <a-sub-menu key="sub1">
-          <span slot="title"><a-icon type="user" />设置</span>
+          <template #title>
+            <span>
+              <user-outlined />
+              设置
+            </span>
+          </template>
           <router-link to="/Connection">
             <a-menu-item key="/Connection">
               连接设置
@@ -27,10 +30,21 @@
           </router-link>
         </a-sub-menu>
         <a-sub-menu key="sub2">
-          <span slot="title"><a-icon type="laptop" />模拟调试</span>
+          <template #title>
+            <span>
+              <laptop-outlined />
+              模拟调试
+            </span>
+          </template>
           <router-link to="/Model">
             <a-menu-item key="/Model">
-              物模型
+              物模型数据
+            </a-menu-item>
+
+          </router-link>
+          <router-link to="/Simulate">
+            <a-menu-item key="/Simulate">
+              定时模拟
             </a-menu-item>
           </router-link>
 

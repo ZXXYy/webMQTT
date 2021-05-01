@@ -1,6 +1,6 @@
 <template>
     <a-layout-header class="header">
-        <div class="logo" />
+        <img class="logo" src="@/assets/mqtt-logo.png"/>
         <a-menu
                 theme="dark"
                 mode="horizontal"
@@ -10,9 +10,7 @@
             <a-menu-item key="/">
                 <router-link to="/">首页</router-link>
             </a-menu-item>
-            <a-menu-item key="/simulate">
-                <router-link to="/simulate">模拟器</router-link>
-            </a-menu-item>
+
             <a-menu-item key="/about">
                 <router-link to="/about">关于我们</router-link>
             </a-menu-item>

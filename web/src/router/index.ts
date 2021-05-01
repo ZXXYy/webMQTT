@@ -31,6 +31,11 @@ const routes: Array<RouteRecordRaw> = [
       path: '/Model',
       component: Model,
       name: '模拟调试'
+    },
+    {
+      path: '/simulate',
+      name: 'Simulate',
+      component: Simulate
     }
     ]
   },
@@ -42,11 +47,7 @@ const routes: Array<RouteRecordRaw> = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
-  {
-    path: '/simulate',
-    name: 'Simulate',
-    component: Simulate
-  }
+
 ]
 
 const router = createRouter({

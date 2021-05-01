@@ -3,13 +3,25 @@
         <a-layout-content
                 :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
         >
-            <a-button type="primary" class="editable-add-btn" @click="handleAdd" style="margin: 8px">
-                快速导入
-            </a-button>
-            <a-button  class="editable-add-btn" @click="showDrawer" style="margin: 8px">
+            <a-upload
+                    class="inline-block"
+                    v-model:file-list="fileList"
+                    name="file"
+                    action="http://127.0.0.1:8080/import"
+                    :headers="headers"
+                    @change="handleChange"
+            >
+                <a-button>
+                    <upload-outlined />
+                    快速导入
+                </a-button>
+
+            </a-upload>
+            <a-button  class="editable-add-btn" type="primary" @click="showDrawer" style="margin: 8px">
                 <PlusOutlined />
                 添加功能
             </a-button>
+
             <a-drawer
                     title="添加功能"
                     :width="720"
@@ -93,7 +105,7 @@
     </a-layout>
 </template>
 <script lang="ts">
-    import { cloneDeep } from 'lodash-es';
+    import { message } from 'ant-design-vue';
     import { defineComponent, reactive, ref, Ref, UnwrapRef } from 'vue';
 
     const columns = [
@@ -128,6 +140,19 @@
         type: string;
     }
     const data: DataItem[] = [];
+
+    interface FileItem {
+        uid: string;
+        name?: string;
+        status?: string;
+        response?: string;
+        url?: string;
+    }
+
+    interface FileInfo {
+        file: FileItem;
+        fileList: FileItem[];
+    }
 
     export default defineComponent({
         setup() {
@@ -182,6 +207,18 @@
                 form.description = '';
             };
 
+            const handleChange = (info: FileInfo) => {
+                if (info.file.status !== 'uploading') {
+                    console.log(info.file, info.fileList);
+                }
+                if (info.file.status === 'done') {
+                    message.success(`${info.file.name} file uploaded successfully`);
+                } else if (info.file.status === 'error') {
+                    message.error(`${info.file.name} file upload failed.`);
+                }
+            };
+
+            const fileList = ref([]);
 
             return {
                 dataSource,
@@ -194,6 +231,13 @@
                 onClose,
                 onDelete,
                 handleAdd,
+
+                fileList,
+                headers: {
+                    authorization: 'authorization-text',
+                },
+                handleChange,
+
             };
         },
     });
@@ -201,5 +245,8 @@
 <style scoped>
     .editable-row-operations a {
         margin-right: 8px;
+    }
+    .inline-block {
+        display: inline-block;
     }
 </style>

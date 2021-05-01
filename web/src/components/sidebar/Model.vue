@@ -7,13 +7,30 @@
                     :data-source="listData">
                 <template #renderItem="{ item }">
                     <a-list-item key="item.name">
-                        <a-card style="width: 300px">
-                            <template #title> {{ item.name }} </template>
-                            <template #extra><a-tag color="blue">上传数据</a-tag></template>
+                        <a-card style="width: 270px;border: 1px solid #f2f2f2;
+                                        box-shadow: 0 1px 4px 0 rgba(0,0,0,.08);
+                                        height:124px;
+                                        " hoverable
+                                bodyStyle="padding-top:15px">
                             <div>
-                                {{ item.value }}
+                                <span style="font-size: 14px;color: #333; margin:0px">
+                                    {{item.name}}
+                                </span>
+                                <span>
+                                    <a-popover v-model:visible="visible" title="Title" trigger="click">
+                                        <template #content>
+                                          <a @click="onClick(item.key)">Close</a>
+                                        </template>
+                                        <a-button type="link" style="float: right" >上传数据</a-button>
+                                    </a-popover>
+                                </span>
                             </div>
-                            <p>{{item.date}}</p>
+                            <p style="font-size: 28px;color: #333; margin:0px">
+                                {{ item.value }}
+                            </p>
+                            <p style="color: #999;font-size: 14px;">
+                                {{item.date}}
+                            </p>
                         </a-card>
                     </a-list-item>
                 </template>
@@ -25,11 +42,15 @@
 <script lang="ts">
     import { defineComponent, onMounted, ref, reactive, toRef } from 'vue';
     import axios from 'axios';
+    import qs from "query-string";
+    import {notification} from "ant-design-vue";
 
     const listData: any = [];
-    for (let i = 0; i < 23; i++) {
+    for (let i = 0; i < 10; i++) {
         listData.push({
+            key: i,
             name: '光强度',
+            id: `${i}`,
             value: `${i}`,
             date: '2021-01-04',
         });
@@ -39,22 +60,33 @@
         name: 'Home',
         setup(){
             console.log("setup");
-            const ebooks = ref();
-            // const ebooks1 = reactive({books:[]});
+            const onClick = (key: number) => {
+                const tempData = listData.filter((listData: { key: number; }) => listData.key == key);
 
-            onMounted(() => {
-                console.log("onMounted");
-                axios.get("http://127.0.0.1:8880/ebook/list?name=Spring").then(
+                axios.post("http://127.0.0.1:8080/model",
+                    qs.stringify(tempData)
+                ).then(
                     (response) => {
                         const data = response.data;
-                        ebooks.value = data.content;
-                        // ebooks1.books = data.content;
                         console.log(response);
                     });
-            });
+                // notification.open({
+                //     message: 'Notification Title',
+                //     description:
+                //         'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+                //     onClick: () => {
+                //         console.log('Notification Clicked!');
+                //     },
+                // });
+            };
+
+            const visible = ref<boolean>(false);
+
+            const hide = () => {
+                visible.value = false;
+            };
+
             return {
-                ebooks,
-                // ebooks, ebooks2:toRef(ebooks1, "books")
                 listData,
                 pagination: {
                     onChange: (page: any) => {
@@ -62,11 +94,9 @@
                     },
                     pageSize: 3,
                 },
-                actions:[
-                    {type: 'StarOutlined', text:'156'},
-                    {type: 'LikeOutlined', text:'156'},
-                    {type: 'MessageOutlined', text:'2'},
-                ],
+                onClick,
+                hide,
+                visible,
 
             }
         }
