@@ -54,7 +54,7 @@
 <script lang="ts">
     import { ValidateErrorEntity } from 'ant-design-vue/es/form/interface';
     import { notification, message } from 'ant-design-vue';
-    import { defineComponent, reactive, ref, toRaw, UnwrapRef } from 'vue';
+    import { defineComponent, onMounted, reactive, ref, toRaw, UnwrapRef } from 'vue';
     import axios from 'axios';
     import qs from 'query-string';
     interface FormState {
@@ -88,6 +88,23 @@
                 deviceSecret: [{required: true, message: 'Please input deviceSecret', trigger: 'blur'}],
 
             };
+            const handleForms = (params: any) => {
+                axios.get("/data", params).then((response) => {
+                    const data = response.data;
+                    console.log(data);
+                    formState.addr = data.addr;
+                    formState.port = data.port;
+                    formState.productKey = data.productKey;
+                    formState.productSecret = data.productSecret;
+                    formState.deviceName = data.deviceName;
+                    formState.deviceSecret = data.deviceSecret;
+                    connected.value = data.connected;
+                });
+            }
+
+            onMounted(() => {
+                handleForms({});
+            });
 
             const onDisconnet = () => {
                 axios.post("http://127.0.0.1:8880/disconnect",
