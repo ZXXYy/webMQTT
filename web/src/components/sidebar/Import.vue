@@ -7,7 +7,7 @@
                     class="inline-block"
                     v-model:file-list="fileList"
                     name="file"
-                    action="http://127.0.0.1:8080/import"
+                    action="http://127.0.0.1:8880/import"
                     :headers="headers"
                     @change="handleChange"
             >

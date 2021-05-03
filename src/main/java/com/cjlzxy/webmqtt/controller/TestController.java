@@ -128,6 +128,20 @@ public class TestController {
         return "Fail";
     }
 
+    @RequestMapping(value = "/disconnect", method = RequestMethod.POST)
+    public String disconnect() {
+        try {
+            sampleClient.disconnect();
+            System.out.println("Disconnected");
+            return "Success";
+        } catch (MqttException e) {
+            e.printStackTrace();
+            return "Fail";
+        }
+    }
+
+
+
     public boolean subscribe(String topicReply) {
         MqttSubscription[] subscriptions = new MqttSubscription[] {
                 new MqttSubscription(topicReply)};
@@ -143,6 +157,8 @@ public class TestController {
             return false;
         }
     }
+
+
 
 
 }
