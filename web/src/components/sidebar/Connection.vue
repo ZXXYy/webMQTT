@@ -10,7 +10,11 @@
                         :label-col="labelCol"
                         :wrapper-col="wrapperCol"
                 >
-                    <a-button type="primary">MQTT Broker Profile Settings</a-button>
+                    <div>
+                        <a-button type="primary">MQTT Broker Profile Settings</a-button>
+                        <check-circle style="float:right; margin-right:25%"/>
+                    </div>
+
                     <a-divider />
                     <a-form-item ref="addr" label="Broker Address" name="addr">
                         <a-input v-model:value="formState.addr" />
@@ -86,8 +90,8 @@
                     .validate()
                     .then(() => {
                         console.log('values', formState, toRaw(formState));
-                        axios.post("http://127.0.0.1:8080/connect",
-                            qs.stringify(formState)
+                        axios.post("http://127.0.0.1:8880/connect",
+                            formState
                         ).then(
                             (response) => {
                                 const data = response.data;
