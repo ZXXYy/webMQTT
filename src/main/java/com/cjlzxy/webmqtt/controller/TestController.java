@@ -22,6 +22,7 @@ import javax.print.attribute.Attribute;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -60,6 +61,8 @@ public class TestController {
     MqttClient sampleClient;
     IMqttToken iMqttToken;
     DeviceAttribute deviceAttribute = new DeviceAttribute();
+    SimpleDateFormat tempDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
 
     @RequestMapping(value = "/connect", method = RequestMethod.POST)
     public String connect(@RequestBody Map<String, String> params) {
@@ -189,9 +192,37 @@ public class TestController {
 
     @GetMapping(value = "/attribute")
     public String returnAttribute() {
-            Gson gs = new Gson();
-        System.out.println(gs.toJson(deviceAttribute));
+        Gson gs = new Gson();
+        // System.out.println(gs.toJson(deviceAttribute));
         return gs.toJson(deviceAttribute);
+    }
+
+    @RequestMapping(value = "/model", method = RequestMethod.POST)
+    public String uploadData(@RequestBody Map<String, String> params) {
+        String identifier = params.get("id");
+        String value = params.get("value");
+        //Paho Mqtt 消息发布
+        String topic = "/sys/" + deviceInfo.getProductKey() + "/" + deviceInfo.getDeviceName() + "/thing/event/property/post";
+        String content = "{\"id\":\"1\",\"version\":\"1.0\",\"params\":{\"" + identifier + "\":" + value + "}}";
+        MqttMessage message = new MqttMessage(content.getBytes());
+        message.setQos(0);
+        try {
+            sampleClient.publish(topic, message);
+            System.out.println("publish: " + content);
+            ArrayList<dAttributes> dAList = deviceAttribute.getA();
+            for (int i=0; i<dAList.size(); ++i) {
+                dAttributes da = dAList.get(i);
+                if(da.getId().equals(identifier)){
+                    da.setValue(value);
+                    da.setDate(tempDate.format(new java.util.Date()));
+                    break;
+                }
+            }
+            return "Success";
+        } catch (MqttException e) {
+            e.printStackTrace();
+            return "Fail";
+        }
     }
 
     public boolean subscribe(String topicReply) {

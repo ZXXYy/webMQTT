@@ -13,6 +13,10 @@ public class DeviceAttribute {
         a.clear();
     }
 
+    public ArrayList<dAttributes> getA() {
+        return a;
+    }
+
     @Override
     public String toString() {
         return "DeviceAttribute{" +
