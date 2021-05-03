@@ -42,7 +42,7 @@
 
                     <a-form-item :wrapper-col="{ span: 14, offset: 4 }">
                         <a-button type="primary" @click="onSubmit">Connect</a-button>
-                        <a-button type="primary" @click="onSubmit">Disconnect</a-button>
+                        <a-button style="margin-left: 10px" type="primary" @click="onDisconnet">Disconnect</a-button>
                         <a-button style="margin-left: 10px" @click="resetForm">Reset</a-button>
                     </a-form-item>
                 </a-form>
@@ -88,6 +88,24 @@
                 deviceSecret: [{required: true, message: 'Please input deviceSecret', trigger: 'blur'}],
 
             };
+
+            const onDisconnet = () => {
+                axios.post("http://127.0.0.1:8880/disconnect",
+                    "disconnect"
+                ).then(
+                    (response) => {
+                        const data = response.data;
+                        if(data=='Success'){
+                            connected.value = false;
+                            message.success('成功断开连接');
+                        }
+                        else{
+                            connected.value = true;
+                            message.error('断开连接失败');
+                        }
+                    }
+                );
+            }
             const onSubmit = () => {
                 formRef.value
                     .validate()
@@ -127,6 +145,7 @@
                 formState,
                 rules,
                 onSubmit,
+                onDisconnet,
                 resetForm,
                 connected,
             };
