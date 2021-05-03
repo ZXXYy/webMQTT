@@ -12,7 +12,8 @@
                 >
                     <div>
                         <a-button type="primary">MQTT Broker Profile Settings</a-button>
-                        <check-circle style="float:right; margin-right:25%"/>
+                        <a-badge v-if="connected" color="#87d068 " text="已连接" style="float:right; margin-right:25%"/>
+                        <a-badge v-else color="#7E8B92" text="未连接" style="float:right; margin-right:25%"/>
                     </div>
 
                     <a-divider />
@@ -41,6 +42,7 @@
 
                     <a-form-item :wrapper-col="{ span: 14, offset: 4 }">
                         <a-button type="primary" @click="onSubmit">Connect</a-button>
+                        <a-button type="primary" @click="onSubmit">Disconnect</a-button>
                         <a-button style="margin-left: 10px" @click="resetForm">Reset</a-button>
                     </a-form-item>
                 </a-form>
@@ -51,13 +53,13 @@
 
 <script lang="ts">
     import { ValidateErrorEntity } from 'ant-design-vue/es/form/interface';
-    import { notification } from 'ant-design-vue';
+    import { notification, message } from 'ant-design-vue';
     import { defineComponent, reactive, ref, toRaw, UnwrapRef } from 'vue';
     import axios from 'axios';
     import qs from 'query-string';
     interface FormState {
         addr: string;
-        port: number;
+        port: string;
         productKey: string;
         productSecret: string;
         deviceName: string;
@@ -65,10 +67,11 @@
     }
     export default defineComponent({
         setup() {
+            const connected = ref();
             const formRef = ref();
             const formState: UnwrapRef<FormState> = reactive({
                 addr: '',
-                port: 1883,
+                port: '',
                 productKey: '',
                 productSecret: '',
                 deviceName: '',
@@ -95,17 +98,19 @@
                         ).then(
                             (response) => {
                                 const data = response.data;
-                                console.log(response);
+                                if(data=='Success'){
+                                    connected.value = true;
+                                    message.success('连接成功');
+                                }
+                                else if(data=='Fail'){
+                                    connected.value = false;
+                                    message.error('用户名或密码错误');
+                                }
+                                else{
+                                    connected.value = false;
+                                    message.error('拒绝连接');
+                                }
                             });
-
-                        notification.open({
-                            message: 'Notification Title',
-                            description:
-                                'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
-                            onClick: () => {
-                                console.log('Notification Clicked!');
-                            },
-                        });
                     })
                     .catch((error: ValidateErrorEntity<FormState>) => {
                         console.log('error', error);
@@ -123,6 +128,7 @@
                 rules,
                 onSubmit,
                 resetForm,
+                connected,
             };
         },
     });
