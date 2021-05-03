@@ -17,4 +17,39 @@ public class DeviceInfo {
         this.broker = "ssl://" + pk + ".iot-as-mqtt.cn-shanghai.aliyuncs.com" + ":" + port;
     }
 
+    @Override
+    public String toString() {
+        return "DeviceInfo{" +
+                "port='" + port + '\'' +
+                ", productKey='" + productKey + '\'' +
+                ", productSecret='" + productSecret + '\'' +
+                ", deviceName='" + deviceName + '\'' +
+                ", deviceSecret='" + deviceSecret + '\'' +
+                ", broker='" + broker + '\'' +
+                '}';
+    }
+
+    public String getPort() {
+        return port;
+    }
+
+    public String getProductKey() {
+        return productKey;
+    }
+
+    public String getProductSecret() {
+        return productSecret;
+    }
+
+    public String getDeviceName() {
+        return deviceName;
+    }
+
+    public String getDeviceSecret() {
+        return deviceSecret;
+    }
+
+    public String getBroker() {
+        return broker;
+    }
 }

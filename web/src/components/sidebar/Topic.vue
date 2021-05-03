@@ -90,8 +90,9 @@
             const dataSource = ref(data);
             const onClick = (key: number) => {
                 const tempData = dataSource.value.filter(item => item.key == key);
-                axios.post("http://127.0.0.1:8080/topic",
-                    qs.stringify(tempData)
+                console.log(tempData[0]);
+                axios.post("http://127.0.0.1:8880/topic",
+                    tempData[0]
                 ).then(
                     (response) => {
                         const data = response.data;
