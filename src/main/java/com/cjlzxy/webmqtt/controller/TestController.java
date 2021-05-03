@@ -1,10 +1,12 @@
 package com.cjlzxy.webmqtt.controller;
 
+import ch.qos.logback.core.util.CachingDateFormatter;
 import com.cjlzxy.webmqtt.services.DeviceAttribute;
 import com.cjlzxy.webmqtt.services.DeviceInfo;
 import com.cjlzxy.webmqtt.services.MqttSign;
 import com.cjlzxy.webmqtt.services.dAttributes;
 import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 import org.springframework.web.bind.annotation.*;
 import org.eclipse.paho.mqttv5.client.IMqttMessageListener;
 import org.eclipse.paho.mqttv5.client.IMqttToken;
@@ -28,11 +30,42 @@ import java.util.List;
 import java.util.Map;
 
 class Mqtt5PostPropertyMessageListener implements IMqttMessageListener {
-
     @Override
+
     public void messageArrived(String topic, MqttMessage message) throws Exception {
         System.out.println("reply topic  : " + topic);
         System.out.println("reply payload: " + message.toString());
+        // is set method
+        int index = topic.lastIndexOf('/');
+        String isSet = topic.substring(index+1);
+        if(!isSet.equals("set")) {
+            return;
+        }
+
+        // get params
+        JsonObject jsonObject = JsonParser.parseString(message.toString()).getAsJsonObject();
+        JsonObject paramsJson = jsonObject.get("params").getAsJsonObject();
+
+        Map<String, String> map = new Gson().fromJson(paramsJson, new TypeToken<Map<String, String>>() {}.getType());
+        //System.out.println(map.size());
+
+        // set deviceAttribute
+        for(Map.Entry<String, String> entry: map.entrySet()) {
+            String id = entry.getKey();
+            String value = entry.getValue();
+//            System.out.println("id:" + id);
+//            System.out.println("value:" + value);
+
+            for (int i = 0; i < TestController.deviceAttribute.getA().size(); ++i) {
+                //System.out.println(TestController.deviceAttribute.getA().get(i).getId());
+                if (TestController.deviceAttribute.getA().get(i).getId().equals(id)) {
+                    TestController.deviceAttribute.getA().get(i).setValue(value);
+                    SimpleDateFormat tempDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    TestController.deviceAttribute.getA().get(i).setDate(tempDate.format(new java.util.Date()));
+                }
+            }
+        }
+        System.out.println("Value update success!");
     }
 }
 
@@ -56,13 +89,13 @@ public class TestController {
         return "Hello World!";
     }
 
-    DeviceInfo deviceInfo;
-    MqttSign sign;
-    MqttClient sampleClient;
-    IMqttToken iMqttToken;
-    DeviceAttribute deviceAttribute = new DeviceAttribute();
-    SimpleDateFormat tempDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
+    public static DeviceInfo deviceInfo;
+    private MqttSign sign;
+    private MqttClient sampleClient;
+    private IMqttToken iMqttToken;
+    public static DeviceAttribute deviceAttribute = new DeviceAttribute();
+    private SimpleDateFormat tempDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private IMqttMessageListener[] subscriptionListeners;
 
     @RequestMapping(value = "/connect", method = RequestMethod.POST)
     public String connect(@RequestBody Map<String, String> params) {
@@ -228,7 +261,7 @@ public class TestController {
     public boolean subscribe(String topicReply) {
         MqttSubscription[] subscriptions = new MqttSubscription[] {
                 new MqttSubscription(topicReply)};
-        IMqttMessageListener[] subscriptionListeners = new IMqttMessageListener[] {
+        subscriptionListeners = new IMqttMessageListener[] {
                 new Mqtt5PostPropertyMessageListener()};
         try {
             sampleClient.subscribe(subscriptions, subscriptionListeners);
