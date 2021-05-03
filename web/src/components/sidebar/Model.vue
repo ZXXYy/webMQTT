@@ -4,7 +4,7 @@
                 :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
         >
             <a-list item-layout="vertical" size="large" :grid="{ gutter:20, column: 3}"
-                    :data-source="listData">
+                    :data-source="dataSource">
                 <template #renderItem="{ item }">
                     <a-list-item key="item.name">
                         <a-card style="width: 270px;border: 1px solid #f2f2f2;
@@ -54,52 +54,50 @@
     import qs from "query-string";
     import {notification} from "ant-design-vue";
 
-    const listData: any = [];
-    for (let i = 0; i < 10; i++) {
-        listData.push({
-            key: i,
-            name: '光强度',
-            id: `${i}`,
-            value: `${i}`,
-            date: '2021-01-04',
-        });
+    interface DataItem {
+      key: number;
+      name: string;
+      value: string;
+      date: string;
     }
+    const data: DataItem[] = [];
 
     export default defineComponent({
         name: 'Home',
         setup(){
             console.log("setup");
-
+            const dataSource = ref(data);
             const newValue = ref<string>('');
             const onSearch = (key: number) => {
                 console.log('or use this.value', newValue.value);
-                const tempData = listData.filter((listData: { key: number; }) => listData.key == key);
-
-                axios.post("http://127.0.0.1:8080/model",
-                    qs.stringify({tempData, newValue})
-                ).then(
-                    (response) => {
-                        const data = response.data;
-                        console.log(response);
-                    });
-                // notification.open({
-                //     message: 'Notification Title',
-                //     description:
-                //         'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
-                //     onClick: () => {
-                //         console.log('Notification Clicked!');
-                //     },
-                // });
+                const tempData = dataSource.value.filter(item => item.key == key);
+                if(newValue.value!=''){
+                  tempData[0].value = newValue.value;
+                  axios.post("http://127.0.0.1:8880/model",
+                      tempData[0]
+                  ).then(
+                  );
+                }
             };
 
             const visible = ref<boolean>(false);
 
+          onMounted(() => {
+            axios.get("http://127.0.0.1:8880/attribute",
+            ).then(
+                (response) => {
+                  const data = response.data["a"];
+                  console.log(data);
+                  dataSource.value = data;
+                }
+            );
+          });
             const hide = () => {
                 visible.value = false;
             };
 
             return {
-                listData,
+              dataSource,
                 pagination: {
                     onChange: (page: any) => {
                         console.log(page);

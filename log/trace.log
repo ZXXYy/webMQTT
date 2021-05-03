@@ -748,6 +748,7 @@ java.lang.NullPointerException: Cannot invoke "com.cjlzxy.webmqtt.services.Devic
 2021-05-03 20:35:22.481 INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] :173  [32m                  [0;39m Initializing Spring DispatcherServlet 'dispatcherServlet'
 2021-05-03 20:35:22.482 INFO  org.springframework.web.servlet.DispatcherServlet :525  [32m                  [0;39m Initializing Servlet 'dispatcherServlet'
 2021-05-03 20:35:22.484 INFO  org.springframework.web.servlet.DispatcherServlet :547  [32m                  [0;39m Completed initialization in 2 ms
+2021-05-03 20:49:11.343 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor  :218  [32m                  [0;39m Shutting down ExecutorService 'applicationTaskExecutor'
 2021-05-03 21:03:28.800 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :55   [32m                  [0;39m Starting WebmqttApplication using Java 16 on Jialiang-MacBook.local with PID 7503 (/Users/cjl/Downloads/webMQTT/target/classes started by cjl in /Users/cjl/Downloads/webMQTT)
 2021-05-03 21:03:28.805 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :662  [32m                  [0;39m No active profile set, falling back to default profiles: default
 2021-05-03 21:03:29.847 INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer      :108  [32m                  [0;39m Tomcat initialized with port(s): 8880 (http)
