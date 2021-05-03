@@ -25,7 +25,7 @@
     import { defineComponent, reactive, ref, Ref, UnwrapRef } from 'vue';
     import axios from 'axios';
     import qs from 'query-string';
-    import {notification} from "ant-design-vue";
+    import {message, notification} from "ant-design-vue";
 
     const columns = [
         {
@@ -96,16 +96,14 @@
                 ).then(
                     (response) => {
                         const data = response.data;
-                        console.log(response);
+                        if(data=='Success'){
+                            message.success('订阅成功');
+                        }
+                        else if(data=='Fail'){
+                            message.error('订阅失败');
+                        }
                     });
-                    notification.open({
-                        message: 'Notification Title',
-                        description:
-                            'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
-                        onClick: () => {
-                            console.log('Notification Clicked!');
-                        },
-                    });
+
             };
             return {
                 dataSource,
