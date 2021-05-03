@@ -59,7 +59,7 @@ public class TestController {
     MqttSign sign;
     MqttClient sampleClient;
     IMqttToken iMqttToken;
-    DeviceAttribute deviceAttribute;
+    DeviceAttribute deviceAttribute = new DeviceAttribute();
 
     @RequestMapping(value = "/connect", method = RequestMethod.POST)
     public String connect(@RequestBody Map<String, String> params) {
@@ -160,6 +160,7 @@ public class TestController {
 
     @RequestMapping(value = "/import", method = RequestMethod.POST)
     public String importJSON(@RequestBody MultipartFile file) {
+        deviceAttribute.clearData();
         try (InputStream stream = file.getInputStream()) {
             // convert stream to string
             String contents = new String(stream.readAllBytes(), StandardCharsets.UTF_8);
@@ -189,7 +190,8 @@ public class TestController {
     @GetMapping(value = "/attribute")
     public String returnAttribute() {
             Gson gs = new Gson();
-            return gs.toJson(deviceAttribute);
+        System.out.println(gs.toJson(deviceAttribute));
+        return gs.toJson(deviceAttribute);
     }
 
     public boolean subscribe(String topicReply) {
