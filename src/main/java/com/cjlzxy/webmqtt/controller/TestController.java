@@ -2,6 +2,7 @@ package com.cjlzxy.webmqtt.controller;
 
 import com.cjlzxy.webmqtt.services.DeviceInfo;
 import com.cjlzxy.webmqtt.services.MqttSign;
+import com.google.gson.Gson;
 import org.springframework.web.bind.annotation.*;
 import org.eclipse.paho.mqttv5.client.IMqttMessageListener;
 import org.eclipse.paho.mqttv5.client.IMqttToken;
@@ -50,6 +51,7 @@ public class TestController {
     DeviceInfo deviceInfo;
     MqttSign sign;
     MqttClient sampleClient;
+    IMqttToken iMqttToken;
 
     @RequestMapping(value = "/connect", method = RequestMethod.POST)
     public String connect(@RequestBody Map<String, String> params) {
@@ -89,7 +91,8 @@ public class TestController {
             //Paho Mqtt5 设备接收的最大报文长度
             connOpts.setMaximumPacketSize(1024L);
 
-            IMqttToken iMqttToken = sampleClient.connectWithResult(connOpts);
+            iMqttToken = sampleClient.connectWithResult(connOpts);
+            deviceInfo.setConnected(true);
             System.out.println("broker: " + broker + " Connected");
             return "Success";
 
@@ -103,8 +106,15 @@ public class TestController {
             System.out.println("cause " + e.getCause());
             System.out.println("excep " + e);
             e.printStackTrace();
+            deviceInfo.setConnected(false);
             return "Fail";
         }
+    }
+
+    @GetMapping("/data")
+    public String keepData() {
+        Gson gs = new Gson();
+        return gs.toJson(deviceInfo);
     }
 
     @RequestMapping(value = "/topic", method = RequestMethod.POST)

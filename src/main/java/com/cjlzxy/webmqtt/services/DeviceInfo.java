@@ -7,6 +7,7 @@ public class DeviceInfo {
     private String deviceName;
     private String deviceSecret;
     private String broker;
+    private boolean connected = false;
 
     public void setParams(String port, String pk, String ps, String dn, String ds) {
         this.port = port;
@@ -15,6 +16,10 @@ public class DeviceInfo {
         this.deviceName = dn;
         this.deviceSecret = ds;
         this.broker = "ssl://" + pk + ".iot-as-mqtt.cn-shanghai.aliyuncs.com" + ":" + port;
+    }
+
+    public void setConnected(boolean connected) {
+        this.connected = connected;
     }
 
     @Override

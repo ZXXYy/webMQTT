@@ -89,10 +89,10 @@
 
             };
             const handleForms = (params: any) => {
-                axios.get("/data", params).then((response) => {
+                axios.get("http://127.0.0.1:8880/data", params).then((response) => {
                     const data = response.data;
                     console.log(data);
-                    formState.addr = data.addr;
+                    formState.addr = data.broker;
                     formState.port = data.port;
                     formState.productKey = data.productKey;
                     formState.productSecret = data.productSecret;
