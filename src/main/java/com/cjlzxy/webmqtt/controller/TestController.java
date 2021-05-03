@@ -14,10 +14,22 @@ import org.eclipse.paho.mqttv5.common.MqttSubscription;
 import org.eclipse.paho.mqttv5.common.packet.MqttProperties;
 import org.eclipse.paho.mqttv5.common.packet.UserProperty;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+
+class Mqtt5PostPropertyMessageListener implements IMqttMessageListener {
+
+    @Override
+    public void messageArrived(String topic, MqttMessage message) throws Exception {
+        System.out.println("reply topic  : " + topic);
+        System.out.println("reply payload: " + message.toString());
+    }
+}
 
 @RestController
 public class TestController {
+
     /*
      * GET, POST, PUT, DELETE
      *
@@ -35,6 +47,10 @@ public class TestController {
         return "Hello World!";
     }
 
+    DeviceInfo deviceInfo;
+    MqttSign sign;
+    MqttClient sampleClient;
+
     @RequestMapping(value = "/connect", method = RequestMethod.POST)
     public String connect(@RequestBody Map<String, String> params) {
         //接入物联网平台的域名。
@@ -47,10 +63,10 @@ public class TestController {
 
         System.out.println("dn: " + dn);
 
-        DeviceInfo deviceInfo = new com.cjlzxy.webmqtt.services.DeviceInfo();
+        deviceInfo = new com.cjlzxy.webmqtt.services.DeviceInfo();
         deviceInfo.setParams(port, pk, ps, dn, ds);
 
-        MqttSign sign = new MqttSign();
+        sign = new MqttSign();
         sign.calculate(pk, dn, ds);
 
         System.out.println("username: " + sign.getUsername());
@@ -60,7 +76,7 @@ public class TestController {
         MemoryPersistence persistence = new MemoryPersistence();
         try {
             //Paho Mqtt 客户端
-            MqttClient sampleClient = new MqttClient(broker, sign.getClientid(), persistence);
+            sampleClient = new MqttClient(broker, sign.getClientid(), persistence);
 
             //Paho Mqtt 连接参数
             MqttConnectionOptions connOpts = new MqttConnectionOptions();
@@ -90,5 +106,43 @@ public class TestController {
             return "Fail";
         }
     }
+
+    @RequestMapping(value = "/topic", method = RequestMethod.POST)
+    public String subtopic(@RequestBody Map<String, String> params) {
+        String tid = params.get("id");
+        System.out.println(tid);
+        String topicReply = "";
+        if(tid.equals("/sys/${ProductKey}/${deviceName}/thing/event/property/post")){
+            topicReply = "/sys/" + deviceInfo.getProductKey() + "/" + deviceInfo.getDeviceName() + "/thing/event/property/post";
+        }
+        else if(tid.equals("/sys/${ProductKey}/${deviceName}/thing/event/property/post_reply")){
+            topicReply = "/sys/" + deviceInfo.getProductKey() + "/" + deviceInfo.getDeviceName() + "/thing/event/property/post_reply";
+        }
+        else if(tid.equals("/sys/${ProductKey}/${deviceName}/thing/service/property/set")) {
+            topicReply = "/sys/" + deviceInfo.getProductKey() + "/" + deviceInfo.getDeviceName() + "/thing/service/property/set";
+        }
+
+        if(subscribe(topicReply)) {
+            return "Success";
+        }
+        return "Fail";
+    }
+
+    public boolean subscribe(String topicReply) {
+        MqttSubscription[] subscriptions = new MqttSubscription[] {
+                new MqttSubscription(topicReply)};
+        IMqttMessageListener[] subscriptionListeners = new IMqttMessageListener[] {
+                new Mqtt5PostPropertyMessageListener()};
+        try {
+            sampleClient.subscribe(subscriptions, subscriptionListeners);
+            System.out.println("subscribe: " + topicReply);
+            return true;
+        } catch (MqttException e) {
+            System.out.println("subscribe error");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
 }
