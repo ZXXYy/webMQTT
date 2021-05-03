@@ -1,8 +1,10 @@
 package com.cjlzxy.webmqtt.controller;
 
+import com.cjlzxy.webmqtt.services.DeviceAttribute;
 import com.cjlzxy.webmqtt.services.DeviceInfo;
 import com.cjlzxy.webmqtt.services.MqttSign;
-import com.google.gson.Gson;
+import com.cjlzxy.webmqtt.services.dAttributes;
+import com.google.gson.*;
 import org.springframework.web.bind.annotation.*;
 import org.eclipse.paho.mqttv5.client.IMqttMessageListener;
 import org.eclipse.paho.mqttv5.client.IMqttToken;
@@ -14,7 +16,12 @@ import org.eclipse.paho.mqttv5.common.MqttMessage;
 import org.eclipse.paho.mqttv5.common.MqttSubscription;
 import org.eclipse.paho.mqttv5.common.packet.MqttProperties;
 import org.eclipse.paho.mqttv5.common.packet.UserProperty;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.print.attribute.Attribute;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +59,7 @@ public class TestController {
     MqttSign sign;
     MqttClient sampleClient;
     IMqttToken iMqttToken;
+    DeviceAttribute deviceAttribute;
 
     @RequestMapping(value = "/connect", method = RequestMethod.POST)
     public String connect(@RequestBody Map<String, String> params) {
@@ -150,7 +158,39 @@ public class TestController {
         }
     }
 
+    @RequestMapping(value = "/import", method = RequestMethod.POST)
+    public String importJSON(@RequestBody MultipartFile file) {
+        try (InputStream stream = file.getInputStream()) {
+            // convert stream to string
+            String contents = new String(stream.readAllBytes(), StandardCharsets.UTF_8);
+            // print string
+            System.out.println(contents);
 
+            JsonObject jsonObject = JsonParser.parseString(contents).getAsJsonObject();
+            JsonArray props = jsonObject.getAsJsonArray("properties");
+
+            for (int i = 0; i < props.size(); i++) {
+                JsonObject tjo = props.get(i).getAsJsonObject();
+                JsonElement identifier = tjo.get("identifier");
+                JsonElement name = tjo.get("name");
+                JsonElement type = tjo.getAsJsonObject("dataType").get("type");
+
+                dAttributes dA = new dAttributes(identifier.getAsString(), name.getAsString(), type.getAsString());
+
+                deviceAttribute.attrAdd(dA);
+            }
+            return "Success";
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return "Fail";
+        }
+    }
+
+    @GetMapping(value = "/attribute")
+    public String returnAttribute() {
+            Gson gs = new Gson();
+            return gs.toJson(deviceAttribute);
+    }
 
     public boolean subscribe(String topicReply) {
         MqttSubscription[] subscriptions = new MqttSubscription[] {

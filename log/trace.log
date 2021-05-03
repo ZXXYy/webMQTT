@@ -169,3 +169,179 @@
 2021-05-03 15:56:34.643 INFO  org.springframework.web.servlet.DispatcherServlet :525  [32m                  [0;39m Initializing Servlet 'dispatcherServlet'
 2021-05-03 15:56:34.647 INFO  org.springframework.web.servlet.DispatcherServlet :547  [32m                  [0;39m Completed initialization in 3 ms
 2021-05-03 15:59:03.350 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor  :218  [32m                  [0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+2021-05-03 16:14:46.536 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :55   [32m                  [0;39m Starting WebmqttApplication using Java 16 on Jialiang-MacBook.local with PID 98599 (/Users/cjl/Downloads/webMQTT/target/classes started by cjl in /Users/cjl/Downloads/webMQTT)
+2021-05-03 16:14:46.589 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :662  [32m                  [0;39m No active profile set, falling back to default profiles: default
+2021-05-03 16:14:47.543 INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer      :108  [32m                  [0;39m Tomcat initialized with port(s): 8880 (http)
+2021-05-03 16:14:47.554 INFO  org.apache.coyote.http11.Http11NioProtocol        :173  [32m                  [0;39m Initializing ProtocolHandler ["http-nio-8880"]
+2021-05-03 16:14:47.555 INFO  org.apache.catalina.core.StandardService          :173  [32m                  [0;39m Starting service [Tomcat]
+2021-05-03 16:14:47.555 INFO  org.apache.catalina.core.StandardEngine           :173  [32m                  [0;39m Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-05-03 16:14:47.633 INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] :173  [32m                  [0;39m Initializing Spring embedded WebApplicationContext
+2021-05-03 16:14:47.634 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext    :289  [32m                  [0;39m Root WebApplicationContext: initialization completed in 961 ms
+2021-05-03 16:14:47.884 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor  :181  [32m                  [0;39m Initializing ExecutorService 'applicationTaskExecutor'
+2021-05-03 16:14:48.113 INFO  org.apache.coyote.http11.Http11NioProtocol        :173  [32m                  [0;39m Starting ProtocolHandler ["http-nio-8880"]
+2021-05-03 16:14:48.131 INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer      :220  [32m                  [0;39m Tomcat started on port(s): 8880 (http) with context path ''
+2021-05-03 16:14:48.143 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :61   [32m                  [0;39m Started WebmqttApplication in 2.533 seconds (JVM running for 4.036)
+2021-05-03 16:14:48.146 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :19   [32m                  [0;39m 启动成功！！
+2021-05-03 16:14:48.147 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :20   [32m                  [0;39m 地址:	http://127.0.0.1:8880
+2021-05-03 16:16:04.588 INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] :173  [32m                  [0;39m Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-05-03 16:16:04.616 INFO  org.springframework.web.servlet.DispatcherServlet :525  [32m                  [0;39m Initializing Servlet 'dispatcherServlet'
+2021-05-03 16:16:04.629 INFO  org.springframework.web.servlet.DispatcherServlet :547  [32m                  [0;39m Completed initialization in 10 ms
+2021-05-03 16:16:04.808 WARN  o.s.w.s.m.support.DefaultHandlerExceptionResolver :207  [32m                  [0;39m Resolved [org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public java.lang.String com.cjlzxy.webmqtt.controller.TestController.importJSON(java.lang.String)]
+2021-05-03 16:44:19.690 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor  :218  [32m                  [0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+2021-05-03 16:44:39.691 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :55   [32m                  [0;39m Starting WebmqttApplication using Java 16 on Jialiang-MacBook.local with PID 99706 (/Users/cjl/Downloads/webMQTT/target/classes started by cjl in /Users/cjl/Downloads/webMQTT)
+2021-05-03 16:44:39.707 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :662  [32m                  [0;39m No active profile set, falling back to default profiles: default
+2021-05-03 16:44:42.480 INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer      :108  [32m                  [0;39m Tomcat initialized with port(s): 8880 (http)
+2021-05-03 16:44:42.497 INFO  org.apache.coyote.http11.Http11NioProtocol        :173  [32m                  [0;39m Initializing ProtocolHandler ["http-nio-8880"]
+2021-05-03 16:44:42.498 INFO  org.apache.catalina.core.StandardService          :173  [32m                  [0;39m Starting service [Tomcat]
+2021-05-03 16:44:42.498 INFO  org.apache.catalina.core.StandardEngine           :173  [32m                  [0;39m Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-05-03 16:44:42.782 INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] :173  [32m                  [0;39m Initializing Spring embedded WebApplicationContext
+2021-05-03 16:44:42.808 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext    :289  [32m                  [0;39m Root WebApplicationContext: initialization completed in 2810 ms
+2021-05-03 16:44:43.241 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor  :181  [32m                  [0;39m Initializing ExecutorService 'applicationTaskExecutor'
+2021-05-03 16:44:43.521 INFO  org.apache.coyote.http11.Http11NioProtocol        :173  [32m                  [0;39m Starting ProtocolHandler ["http-nio-8880"]
+2021-05-03 16:44:43.544 INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer      :220  [32m                  [0;39m Tomcat started on port(s): 8880 (http) with context path ''
+2021-05-03 16:44:43.561 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :61   [32m                  [0;39m Started WebmqttApplication in 5.616 seconds (JVM running for 8.436)
+2021-05-03 16:44:43.565 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :19   [32m                  [0;39m 启动成功！！
+2021-05-03 16:44:43.567 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :20   [32m                  [0;39m 地址:	http://127.0.0.1:8880
+2021-05-03 16:44:56.038 INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] :173  [32m                  [0;39m Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-05-03 16:44:56.039 INFO  org.springframework.web.servlet.DispatcherServlet :525  [32m                  [0;39m Initializing Servlet 'dispatcherServlet'
+2021-05-03 16:44:56.041 INFO  org.springframework.web.servlet.DispatcherServlet :547  [32m                  [0;39m Completed initialization in 1 ms
+2021-05-03 16:44:56.441 ERROR o.a.c.c.C.[.[localhost].[/].[dispatcherServlet]   :175  [32m                  [0;39m Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.NullPointerException: Cannot invoke "org.springframework.web.multipart.MultipartFile.getInputStream()" because "files" is null] with root cause
+java.lang.NullPointerException: Cannot invoke "org.springframework.web.multipart.MultipartFile.getInputStream()" because "files" is null
+	at com.cjlzxy.webmqtt.controller.TestController.importJSON(TestController.java:159)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:78)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:197)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:141)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:894)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1060)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:652)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1707)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:831)
+2021-05-03 16:47:38.242 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor  :218  [32m                  [0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+2021-05-03 16:48:54.515 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :55   [32m                  [0;39m Starting WebmqttApplication using Java 16 on Jialiang-MacBook.local with PID 99882 (/Users/cjl/Downloads/webMQTT/target/classes started by cjl in /Users/cjl/Downloads/webMQTT)
+2021-05-03 16:48:54.553 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :662  [32m                  [0;39m No active profile set, falling back to default profiles: default
+2021-05-03 16:48:56.670 INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer      :108  [32m                  [0;39m Tomcat initialized with port(s): 8880 (http)
+2021-05-03 16:48:56.684 INFO  org.apache.coyote.http11.Http11NioProtocol        :173  [32m                  [0;39m Initializing ProtocolHandler ["http-nio-8880"]
+2021-05-03 16:48:56.685 INFO  org.apache.catalina.core.StandardService          :173  [32m                  [0;39m Starting service [Tomcat]
+2021-05-03 16:48:56.686 INFO  org.apache.catalina.core.StandardEngine           :173  [32m                  [0;39m Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-05-03 16:48:56.805 INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] :173  [32m                  [0;39m Initializing Spring embedded WebApplicationContext
+2021-05-03 16:48:56.805 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext    :289  [32m                  [0;39m Root WebApplicationContext: initialization completed in 2018 ms
+2021-05-03 16:48:57.245 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor  :181  [32m                  [0;39m Initializing ExecutorService 'applicationTaskExecutor'
+2021-05-03 16:48:57.567 INFO  org.apache.coyote.http11.Http11NioProtocol        :173  [32m                  [0;39m Starting ProtocolHandler ["http-nio-8880"]
+2021-05-03 16:48:57.603 INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer      :220  [32m                  [0;39m Tomcat started on port(s): 8880 (http) with context path ''
+2021-05-03 16:48:57.617 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :61   [32m                  [0;39m Started WebmqttApplication in 4.185 seconds (JVM running for 6.067)
+2021-05-03 16:48:57.620 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :19   [32m                  [0;39m 启动成功！！
+2021-05-03 16:48:57.621 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :20   [32m                  [0;39m 地址:	http://127.0.0.1:8880
+2021-05-03 16:50:15.403 INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] :173  [32m                  [0;39m Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-05-03 16:50:15.411 INFO  org.springframework.web.servlet.DispatcherServlet :525  [32m                  [0;39m Initializing Servlet 'dispatcherServlet'
+2021-05-03 16:50:15.435 INFO  org.springframework.web.servlet.DispatcherServlet :547  [32m                  [0;39m Completed initialization in 22 ms
+2021-05-03 17:16:37.650 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor  :218  [32m                  [0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+2021-05-03 17:16:47.537 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :55   [32m                  [0;39m Starting WebmqttApplication using Java 16 on Jialiang-MacBook.local with PID 1220 (/Users/cjl/Downloads/webMQTT/target/classes started by cjl in /Users/cjl/Downloads/webMQTT)
+2021-05-03 17:16:47.542 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :662  [32m                  [0;39m No active profile set, falling back to default profiles: default
+2021-05-03 17:16:49.224 INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer      :108  [32m                  [0;39m Tomcat initialized with port(s): 8880 (http)
+2021-05-03 17:16:49.235 INFO  org.apache.coyote.http11.Http11NioProtocol        :173  [32m                  [0;39m Initializing ProtocolHandler ["http-nio-8880"]
+2021-05-03 17:16:49.236 INFO  org.apache.catalina.core.StandardService          :173  [32m                  [0;39m Starting service [Tomcat]
+2021-05-03 17:16:49.236 INFO  org.apache.catalina.core.StandardEngine           :173  [32m                  [0;39m Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-05-03 17:16:49.312 INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] :173  [32m                  [0;39m Initializing Spring embedded WebApplicationContext
+2021-05-03 17:16:49.312 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext    :289  [32m                  [0;39m Root WebApplicationContext: initialization completed in 1679 ms
+2021-05-03 17:16:49.598 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor  :181  [32m                  [0;39m Initializing ExecutorService 'applicationTaskExecutor'
+2021-05-03 17:16:49.825 INFO  org.apache.coyote.http11.Http11NioProtocol        :173  [32m                  [0;39m Starting ProtocolHandler ["http-nio-8880"]
+2021-05-03 17:16:49.841 INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer      :220  [32m                  [0;39m Tomcat started on port(s): 8880 (http) with context path ''
+2021-05-03 17:16:49.853 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :61   [32m                  [0;39m Started WebmqttApplication in 3.326 seconds (JVM running for 5.16)
+2021-05-03 17:16:49.856 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :19   [32m                  [0;39m 启动成功！！
+2021-05-03 17:16:49.857 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :20   [32m                  [0;39m 地址:	http://127.0.0.1:8880
+2021-05-03 17:16:56.667 INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] :173  [32m                  [0;39m Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-05-03 17:16:56.670 INFO  org.springframework.web.servlet.DispatcherServlet :525  [32m                  [0;39m Initializing Servlet 'dispatcherServlet'
+2021-05-03 17:16:56.679 INFO  org.springframework.web.servlet.DispatcherServlet :547  [32m                  [0;39m Completed initialization in 6 ms
+2021-05-03 17:18:45.811 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor  :218  [32m                  [0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+2021-05-03 17:18:53.793 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :55   [32m                  [0;39m Starting WebmqttApplication using Java 16 on Jialiang-MacBook.local with PID 1312 (/Users/cjl/Downloads/webMQTT/target/classes started by cjl in /Users/cjl/Downloads/webMQTT)
+2021-05-03 17:18:53.797 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :662  [32m                  [0;39m No active profile set, falling back to default profiles: default
+2021-05-03 17:18:54.807 INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer      :108  [32m                  [0;39m Tomcat initialized with port(s): 8880 (http)
+2021-05-03 17:18:54.821 INFO  org.apache.coyote.http11.Http11NioProtocol        :173  [32m                  [0;39m Initializing ProtocolHandler ["http-nio-8880"]
+2021-05-03 17:18:54.822 INFO  org.apache.catalina.core.StandardService          :173  [32m                  [0;39m Starting service [Tomcat]
+2021-05-03 17:18:54.822 INFO  org.apache.catalina.core.StandardEngine           :173  [32m                  [0;39m Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-05-03 17:18:54.901 INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] :173  [32m                  [0;39m Initializing Spring embedded WebApplicationContext
+2021-05-03 17:18:54.902 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext    :289  [32m                  [0;39m Root WebApplicationContext: initialization completed in 1048 ms
+2021-05-03 17:18:55.161 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor  :181  [32m                  [0;39m Initializing ExecutorService 'applicationTaskExecutor'
+2021-05-03 17:18:55.367 INFO  org.apache.coyote.http11.Http11NioProtocol        :173  [32m                  [0;39m Starting ProtocolHandler ["http-nio-8880"]
+2021-05-03 17:18:55.385 INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer      :220  [32m                  [0;39m Tomcat started on port(s): 8880 (http) with context path ''
+2021-05-03 17:18:55.395 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :61   [32m                  [0;39m Started WebmqttApplication in 2.4 seconds (JVM running for 3.532)
+2021-05-03 17:18:55.398 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :19   [32m                  [0;39m 启动成功！！
+2021-05-03 17:18:55.399 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :20   [32m                  [0;39m 地址:	http://127.0.0.1:8880
+2021-05-03 17:18:58.024 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor  :218  [32m                  [0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+2021-05-03 17:19:04.414 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :55   [32m                  [0;39m Starting WebmqttApplication using Java 16 on Jialiang-MacBook.local with PID 1323 (/Users/cjl/Downloads/webMQTT/target/classes started by cjl in /Users/cjl/Downloads/webMQTT)
+2021-05-03 17:19:04.418 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :662  [32m                  [0;39m No active profile set, falling back to default profiles: default
+2021-05-03 17:19:06.073 INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer      :108  [32m                  [0;39m Tomcat initialized with port(s): 8880 (http)
+2021-05-03 17:19:06.086 INFO  org.apache.coyote.http11.Http11NioProtocol        :173  [32m                  [0;39m Initializing ProtocolHandler ["http-nio-8880"]
+2021-05-03 17:19:06.087 INFO  org.apache.catalina.core.StandardService          :173  [32m                  [0;39m Starting service [Tomcat]
+2021-05-03 17:19:06.087 INFO  org.apache.catalina.core.StandardEngine           :173  [32m                  [0;39m Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-05-03 17:19:06.176 INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] :173  [32m                  [0;39m Initializing Spring embedded WebApplicationContext
+2021-05-03 17:19:06.176 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext    :289  [32m                  [0;39m Root WebApplicationContext: initialization completed in 1676 ms
+2021-05-03 17:19:06.482 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor  :181  [32m                  [0;39m Initializing ExecutorService 'applicationTaskExecutor'
+2021-05-03 17:19:06.691 INFO  org.apache.coyote.http11.Http11NioProtocol        :173  [32m                  [0;39m Starting ProtocolHandler ["http-nio-8880"]
+2021-05-03 17:19:06.732 INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer      :220  [32m                  [0;39m Tomcat started on port(s): 8880 (http) with context path ''
+2021-05-03 17:19:06.744 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :61   [32m                  [0;39m Started WebmqttApplication in 2.996 seconds (JVM running for 3.983)
+2021-05-03 17:19:06.748 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :19   [32m                  [0;39m 启动成功！！
+2021-05-03 17:19:06.749 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :20   [32m                  [0;39m 地址:	http://127.0.0.1:8880
+2021-05-03 17:19:14.210 INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] :173  [32m                  [0;39m Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-05-03 17:19:14.211 INFO  org.springframework.web.servlet.DispatcherServlet :525  [32m                  [0;39m Initializing Servlet 'dispatcherServlet'
+2021-05-03 17:19:14.212 INFO  org.springframework.web.servlet.DispatcherServlet :547  [32m                  [0;39m Completed initialization in 1 ms
+2021-05-03 17:21:50.895 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor  :218  [32m                  [0;39m Shutting down ExecutorService 'applicationTaskExecutor'
+2021-05-03 17:21:57.770 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :55   [32m                  [0;39m Starting WebmqttApplication using Java 16 on Jialiang-MacBook.local with PID 1459 (/Users/cjl/Downloads/webMQTT/target/classes started by cjl in /Users/cjl/Downloads/webMQTT)
+2021-05-03 17:21:57.782 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :662  [32m                  [0;39m No active profile set, falling back to default profiles: default
+2021-05-03 17:21:58.872 INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer      :108  [32m                  [0;39m Tomcat initialized with port(s): 8880 (http)
+2021-05-03 17:21:58.885 INFO  org.apache.coyote.http11.Http11NioProtocol        :173  [32m                  [0;39m Initializing ProtocolHandler ["http-nio-8880"]
+2021-05-03 17:21:58.886 INFO  org.apache.catalina.core.StandardService          :173  [32m                  [0;39m Starting service [Tomcat]
+2021-05-03 17:21:58.887 INFO  org.apache.catalina.core.StandardEngine           :173  [32m                  [0;39m Starting Servlet engine: [Apache Tomcat/9.0.44]
+2021-05-03 17:21:58.969 INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] :173  [32m                  [0;39m Initializing Spring embedded WebApplicationContext
+2021-05-03 17:21:58.969 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext    :289  [32m                  [0;39m Root WebApplicationContext: initialization completed in 1076 ms
+2021-05-03 17:21:59.262 INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor  :181  [32m                  [0;39m Initializing ExecutorService 'applicationTaskExecutor'
+2021-05-03 17:21:59.462 INFO  org.apache.coyote.http11.Http11NioProtocol        :173  [32m                  [0;39m Starting ProtocolHandler ["http-nio-8880"]
+2021-05-03 17:21:59.495 INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer      :220  [32m                  [0;39m Tomcat started on port(s): 8880 (http) with context path ''
+2021-05-03 17:21:59.506 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :61   [32m                  [0;39m Started WebmqttApplication in 2.43 seconds (JVM running for 3.625)
+2021-05-03 17:21:59.509 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :19   [32m                  [0;39m 启动成功！！
+2021-05-03 17:21:59.509 INFO  com.cjlzxy.webmqtt.config.WebmqttApplication      :20   [32m                  [0;39m 地址:	http://127.0.0.1:8880
+2021-05-03 17:22:10.521 INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] :173  [32m                  [0;39m Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-05-03 17:22:10.522 INFO  org.springframework.web.servlet.DispatcherServlet :525  [32m                  [0;39m Initializing Servlet 'dispatcherServlet'
+2021-05-03 17:22:10.524 INFO  org.springframework.web.servlet.DispatcherServlet :547  [32m                  [0;39m Completed initialization in 1 ms
