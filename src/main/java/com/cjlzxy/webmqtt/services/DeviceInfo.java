@@ -14,6 +14,7 @@ public class DeviceInfo {
         this.productKey = pk;
         this.productSecret = ps;
         this.deviceName = dn;
+
         this.deviceSecret = ds;
         this.broker = "ssl://" + pk + ".iot-as-mqtt.cn-shanghai.aliyuncs.com" + ":" + port;
     }

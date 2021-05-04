@@ -168,15 +168,23 @@
             const visible = ref<boolean>(false);
 
             const showModal = () => {
-              visible.value = true;
-              axios.get("http://127.0.0.1:8880/userSignData",
-              ).then(
-                  (response) => {
-                    const data = response.data["a"];
-                    console.log(data);
-                    userInfo.value = data;
-                  }
-              );
+              formRef.value
+                  .validate()
+                  .then(() => {
+                    visible.value = true;
+                    axios.post("http://127.0.0.1:8880/calculate",
+                        formState
+                    ).then(
+                        (response) => {
+                          const data = response.data;
+                          console.log(data);
+                          userInfo.value = data;
+                        }
+                    );
+                  })
+                  .catch((error: ValidateErrorEntity<FormState>) => {
+                    console.log('error', error);
+                  });
             };
 
             const handleOk = (e: MouseEvent) => {

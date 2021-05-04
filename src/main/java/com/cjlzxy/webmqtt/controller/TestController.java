@@ -92,7 +92,7 @@ public class TestController {
     }
 
     public static DeviceInfo deviceInfo;
-    private static MqttSign sign;
+    private static MqttSign sign = new MqttSign();;
     private static MqttClient sampleClient;
     private static IMqttToken iMqttToken;
     public static DeviceAttribute deviceAttribute = new DeviceAttribute();
@@ -142,10 +142,29 @@ public class TestController {
         }
     }
 
+    @RequestMapping(value = "/calculate", method = RequestMethod.POST)
+    public String calInfo(@RequestBody Map<String, String> params) {
+        String dn = params.get("deviceName");
+        String ds = params.get("deviceSecret");
+        String pk = params.get("productKey");
+
+        MqttSign sign = new MqttSign();
+        sign.calculate(pk, dn, ds);
+
+        System.out.println("username: " + sign.getUsername());
+        System.out.println("password: " + sign.getPassword());
+        System.out.println("clientid: " + sign.getClientid());
+
+        System.out.println("Calculate Infomation Done!");
+
+        return new Gson().toJson(sign);
+    }
+
     @RequestMapping(value = "/connect", method = RequestMethod.POST)
     public String connect(@RequestBody Map<String, String> params) {
         //接入物联网平台的域名。
         String port = params.get("port");
+        if(port=="") port="1883";
         String dn = params.get("deviceName");
         String ds = params.get("deviceSecret");
         String pk = params.get("productKey");
@@ -157,7 +176,6 @@ public class TestController {
         deviceInfo = new com.cjlzxy.webmqtt.services.DeviceInfo();
         deviceInfo.setParams(port, pk, ps, dn, ds);
 
-        sign = new MqttSign();
         sign.calculate(pk, dn, ds);
 
         System.out.println("username: " + sign.getUsername());
