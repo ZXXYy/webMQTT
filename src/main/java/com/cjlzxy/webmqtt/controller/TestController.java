@@ -230,6 +230,33 @@ public class TestController {
         return gs.toJson(deviceAttribute);
     }
 
+    @RequestMapping(value = "/attribute/delete", method = RequestMethod.POST)
+    public String attributeDelete(@RequestBody Map<String, String> params) {
+        String identifier = params.get("id");
+        return deviceAttribute.removeById(identifier);
+    }
+
+    @RequestMapping(value = "/attribute/add", method = RequestMethod.POST)
+    public String attributeAdd(@RequestBody Map<String, String> params) {
+        String identifier = params.get("id");
+        String name = params.get("name");
+        String type = params.get("type");
+
+        dAttributes da = new dAttributes(identifier, name, type);
+        deviceAttribute.attrAdd(da);
+        return "Success";
+    }
+
+    @RequestMapping(value = "/attribute/edit", method = RequestMethod.POST)
+    public String attributeEdit(@RequestBody Map<String, String> params) {
+        int key = Integer.parseInt(params.get("key"));
+        String id = params.get("id");
+        String name = params.get("name");
+        String type = params.get("type");
+
+        return deviceAttribute.modifyByKey(key, id, name, type);
+    }
+
     @RequestMapping(value = "/model", method = RequestMethod.POST)
     public String uploadData(@RequestBody Map<String, String> params) {
         String identifier = params.get("id");
@@ -257,6 +284,9 @@ public class TestController {
             return "Fail";
         }
     }
+
+//    @RequestMapping(value = "/timer", method = RequestMethod.POST)
+
 
     public boolean subscribe(String topicReply) {
         MqttSubscription[] subscriptions = new MqttSubscription[] {

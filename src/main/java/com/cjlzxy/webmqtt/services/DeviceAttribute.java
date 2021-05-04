@@ -17,10 +17,32 @@ public class DeviceAttribute {
         return a;
     }
 
+    public String removeById(String id) {
+        for(int i=0; i<a.size(); ++i) {
+            if(a.get(i).getId().equals(id)) {
+                a.remove(i);
+                return "Success";
+            }
+        }
+        return "Fail";
+    }
+
+    public String modifyByKey(int key, String id, String name, String type) {
+        for(int i=0; i<a.size(); ++i) {
+            if(a.get(i).getKey() == key) {
+                a.get(i).setId(id);
+                a.get(i).setName(name);
+                a.get(i).setType(type);
+                return "Success";
+            }
+        }
+        return "Fail";
+    }
     @Override
     public String toString() {
         return "DeviceAttribute{" +
                 "a=" + a +
                 '}';
     }
+
 }
