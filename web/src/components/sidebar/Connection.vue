@@ -42,8 +42,15 @@
 
                     <a-form-item :wrapper-col="{ span: 14, offset: 4 }">
                         <a-button type="primary" @click="onSubmit">Connect</a-button>
-                        <a-button style="margin-left: 10px" type="primary" @click="onDisconnet">Disconnect</a-button>
+                        <a-button style="margin-left: 10px" @click="onDisconnet">Disconnect</a-button>
+                        <a-button style="margin-left: 10px" type="primary" @click="showModal">Calculate</a-button>
+                        <a-modal v-model:visible="visible" title="Username and Password" @ok="handleOk">
+                          <p>username: {{userInfo.username}}</p>
+                          <p>password: {{userInfo.password}}</p>
+                          <p>clientID: {{userInfo.clientid}}</p>
+                        </a-modal>
                         <a-button style="margin-left: 10px" @click="resetForm">Reset</a-button>
+
                     </a-form-item>
                 </a-form>
 
@@ -65,10 +72,17 @@
         deviceName: string;
         deviceSecret: string;
     }
+    interface DataItem {
+      username: string;
+      password: string;
+      clientid: string;
+    }
+    const data: DataItem[] = [];
     export default defineComponent({
         setup() {
             const connected = ref();
             const formRef = ref();
+            const userInfo = ref(data);
             const formState: UnwrapRef<FormState> = reactive({
                 addr: '',
                 port: '',
@@ -78,7 +92,7 @@
                 deviceSecret: '',
             });
             const rules = {
-                port: [{ required: true, message: 'Please input Broker port', trigger: 'blur' }],
+                // port: [{ required: true, message: 'Please input Broker port', trigger: 'blur' }],
                 productKey: [{ required: true, message: 'Please input productKey', trigger: 'blur'}],
                 // productSecret: [{required: true, message: 'Please input productSecret', trigger: 'blur'}],
                 deviceName: [{required: true, message: 'Please input deviceName', trigger: 'blur'}],
@@ -151,6 +165,24 @@
             const resetForm = () => {
                 formRef.value.resetFields();
             };
+            const visible = ref<boolean>(false);
+
+            const showModal = () => {
+              visible.value = true;
+              axios.get("http://127.0.0.1:8880/userSignData",
+              ).then(
+                  (response) => {
+                    const data = response.data["a"];
+                    console.log(data);
+                    userInfo.value = data;
+                  }
+              );
+            };
+
+            const handleOk = (e: MouseEvent) => {
+              console.log(e);
+              visible.value = false;
+            };
             return {
                 formRef,
                 labelCol: { span: 4 },
@@ -158,10 +190,14 @@
                 other: '',
                 formState,
                 rules,
+                userInfo,
                 onSubmit,
                 onDisconnet,
                 resetForm,
                 connected,
+                visible,
+                showModal,
+                handleOk,
             };
         },
     });
