@@ -54,11 +54,11 @@
 <script lang="ts">
     import { defineComponent, onMounted, ref, reactive, toRef } from 'vue';
     import axios from 'axios';
-    import qs from "query-string";
     import {message, notification} from "ant-design-vue";
 
     interface DataItem {
       key: number;
+      id: string;
       name: string;
       value: string;
       date: string;
@@ -78,6 +78,7 @@
                 const tempData = dataSource.value.filter(item => item.key == key);
                 const tempData2: DataItem = {
                   key: tempData[0].key,
+                  id: tempData[0].id,
                   name: tempData[0].name,
                   value: tempData[0].value,
                   date: tempData[0].date

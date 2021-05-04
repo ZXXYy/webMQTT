@@ -83,7 +83,7 @@
                   }"
         >
           <a-button style="margin-right: 8px" @click="onClose">Cancel</a-button>
-          <a-button type="primary" @click="handleAdd(form.id)" >Submit</a-button>
+          <a-button type="primary" @click="handleAdd(form.key)" >Submit</a-button>
         </div>
       </a-drawer>
       <a-divider />
@@ -158,6 +158,7 @@ interface FileInfo {
 export default defineComponent({
   setup() {
     const form = reactive({
+      key: 0,
       name: '',
       id: '',
       type: '',
@@ -181,6 +182,7 @@ export default defineComponent({
         form.name = tempData[0].name;
         form.id = tempData[0].id;
         form.type = tempData[0].type;
+        form.key = tempData[0].key;
         // form.description = tempData[0].description;
       }
     };
@@ -199,20 +201,66 @@ export default defineComponent({
       visible.value = false;
     };
     const onDelete = (key: number) => {
-      dataSource.value = dataSource.value.filter(item => item.key !== key);
+      const tempData = dataSource.value.filter(item => item.key == key);
+      axios.post("http://127.0.0.1:8880/attribute/delete",
+          tempData[0]
+      ).then(
+          (response) => {
+            const data = response.data;
+            if(data=='Success'){
+              message.success('删除成功');
+              refresh();
+            }
+            else{
+              message.error('删除失败');
+            }
+          }
+      );
     };
     let i = 0;
-    const handleAdd = (id: string) =>{
+    const handleAdd = (key: number) =>{
 
       const newData = {
-        key: i++,
+        key: form.key,
         name: form.name,
         id:form.id,
         type: form.type,
       };
-      dataSource.value.push(newData);
+      if(key==0){
+        axios.post("http://127.0.0.1:8880/attribute/add",
+            newData
+        ).then(
+            (response) => {
+              const data = response.data;
+              if(data=='Success'){
+                message.success('添加成功');
+                refresh();
+              }
+              else{
+                message.error('添加失败');
+              }
+            }
+        );
+      }
+      else{
+        axios.post("http://127.0.0.1:8880/attribute/edit",
+            newData
+        ).then(
+            (response) => {
+              const data = response.data;
+              if(data=='Success'){
+                message.success('修改成功');
+                refresh();
+              }
+              else{
+                message.error('修改失败');
+              }
+            }
+        );
+      }
 
       visible.value = false;
+      form.key = 0;
       form.name = '';
       form.id = '';
       form.type = '';
@@ -228,6 +276,9 @@ export default defineComponent({
       } else if (info.file.status === 'error') {
         message.error(`${info.file.name} file upload failed.`);
       }
+      refresh();
+    };
+    const refresh = () =>{
       axios.get("http://127.0.0.1:8880/attribute",
       ).then(
           (response) => {
@@ -236,8 +287,7 @@ export default defineComponent({
             dataSource.value = data;
           }
       );
-    };
-
+    }
     const fileList = ref([]);
 
     return {
