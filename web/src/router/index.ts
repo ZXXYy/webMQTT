@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '../views/Home.vue'
-import Simulate from '../views/Simulate.vue'
+import Simulate from '../components/sidebar/Simulate.vue'
 import Connection from '@/components/sidebar/Connection.vue'
 import PhyModel from '@/components/sidebar/Import.vue'
 import PubSub from '@/components/sidebar/Topic.vue'

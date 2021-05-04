@@ -78,9 +78,6 @@
                 deviceSecret: '',
             });
             const rules = {
-                addr: [
-                    { required: true, message: 'Please input Broker Address', trigger: 'blur' }
-                ],
                 port: [{ required: true, message: 'Please input Broker port', trigger: 'blur' }],
                 productKey: [{ required: true, message: 'Please input productKey', trigger: 'blur'}],
                 productSecret: [{required: true, message: 'Please input productSecret', trigger: 'blur'}],
