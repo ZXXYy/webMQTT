@@ -262,6 +262,72 @@ public class TestController {
         String identifier = params.get("id");
         String value = params.get("value");
         //Paho Mqtt 消息发布
+        return upload(identifier, value);
+    }
+
+    @RequestMapping(value = "/timer", method = RequestMethod.POST)
+    public String UploadByTime(@RequestBody Map<String, String> params) {
+        int interval = Integer.parseInt(params.get("interval"));
+        String id = params.get("id");
+        String ck = params.get("checked");
+
+        int index = deviceAttribute.getIndexById(id);
+        if(index==-1) return "Fail";
+        if(ck.equals("false")) {
+            deviceAttribute.getA().get(index).setInterval(0);
+            return "Fail";
+        }
+        String value = deviceAttribute.getA().get(index).getValue();
+        String type = deviceAttribute.getA().get(index).getType();
+        deviceAttribute.getA().get(index).setChecked(ck);
+        deviceAttribute.getA().get(index).setInterval(interval);
+
+        if(type.equals("double") || type.equals("float")) {
+            Float val = Float.parseFloat(value);
+            val += (int) (Math.random()*10-5);
+            value = String.valueOf(val);
+        }
+        else if(type.equals("int32") || type.equals("int")) {
+            int val = Integer.parseInt(value);
+            val += (int) (Math.random()*10-5);
+            value = String.valueOf(val);
+        }
+        int cnt = 0;
+        int maxcnt = 50;
+
+        while(cnt<maxcnt) {
+            String res = upload(id, value);
+            if(res.equals("Fail")) break;
+            cnt++;
+            try {
+                Thread.currentThread().sleep(1000*interval);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        deviceAttribute.getA().get(index).setChecked("false");
+        deviceAttribute.getA().get(index).setInterval(0);
+        if(cnt>=maxcnt) return "Success";
+        return "Fail";
+    }
+
+    public boolean subscribe(String topicReply) {
+        MqttSubscription[] subscriptions = new MqttSubscription[] {
+                new MqttSubscription(topicReply)};
+        subscriptionListeners = new IMqttMessageListener[] {
+                new Mqtt5PostPropertyMessageListener()};
+        try {
+            sampleClient.subscribe(subscriptions, subscriptionListeners);
+            System.out.println("subscribe: " + topicReply);
+            return true;
+        } catch (MqttException e) {
+            System.out.println("subscribe error");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public String upload(String identifier, String value) {
         String topic = "/sys/" + deviceInfo.getProductKey() + "/" + deviceInfo.getDeviceName() + "/thing/event/property/post";
         String content = "{\"id\":\"1\",\"version\":\"1.0\",\"params\":{\"" + identifier + "\":" + value + "}}";
         MqttMessage message = new MqttMessage(content.getBytes());
@@ -282,25 +348,6 @@ public class TestController {
         } catch (MqttException e) {
             e.printStackTrace();
             return "Fail";
-        }
-    }
-
-//    @RequestMapping(value = "/timer", method = RequestMethod.POST)
-
-
-    public boolean subscribe(String topicReply) {
-        MqttSubscription[] subscriptions = new MqttSubscription[] {
-                new MqttSubscription(topicReply)};
-        subscriptionListeners = new IMqttMessageListener[] {
-                new Mqtt5PostPropertyMessageListener()};
-        try {
-            sampleClient.subscribe(subscriptions, subscriptionListeners);
-            System.out.println("subscribe: " + topicReply);
-            return true;
-        } catch (MqttException e) {
-            System.out.println("subscribe error");
-            e.printStackTrace();
-            return false;
         }
     }
 

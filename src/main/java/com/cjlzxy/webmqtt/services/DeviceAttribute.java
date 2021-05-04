@@ -38,6 +38,16 @@ public class DeviceAttribute {
         }
         return "Fail";
     }
+
+    public int getIndexById(String id) {
+        for(int i=0; i<a.size(); ++i) {
+            if(a.get(i).getId() == id) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     @Override
     public String toString() {
         return "DeviceAttribute{" +

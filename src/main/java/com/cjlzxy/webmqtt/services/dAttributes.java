@@ -8,7 +8,25 @@ public class dAttributes {
     private String type;
     private String value = "0";
     private String date;
+    private String checked = "false";
+    private int interval = 0;
     private int key;
+
+    public int getInterval() {
+        return interval;
+    }
+
+    public void setInterval(int interval) {
+        this.interval = interval;
+    }
+
+    public String getChecked() {
+        return checked;
+    }
+
+    public void setChecked(String checked) {
+        this.checked = checked;
+    }
 
     public String getId() {
         return id;
