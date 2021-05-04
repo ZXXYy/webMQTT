@@ -3,6 +3,9 @@
         <a-layout-content
                 :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
         >
+          <a-button @click="onClick" size="small" style="margin-bottom: 1%">
+            <template #icon><SyncOutlined /></template>
+          </a-button>
             <a-list item-layout="vertical" size="large" :grid="{ gutter:20, column: 3}"
                     :data-source="dataSource">
                 <template #renderItem="{ item }">
@@ -17,7 +20,7 @@
                                     {{item.name}}
                                 </span>
                                 <span>
-                                    <a-popover :key="item.name" trigger="click">
+                                    <a-popover  :key="item.name" trigger="click">
                                         <template #title>{{item.name}}</template>
                                         <template #content>
                                             <a-input-search
@@ -30,7 +33,7 @@
                                               </template>
                                             </a-input-search>
                                         </template>
-                                        <a-button type="link" style="float: right" >上传数据</a-button>
+                                        <a-button :key="item.name" type="link" style="float: right">上传数据</a-button>
                                     </a-popover>
                                 </span>
                             </div>
@@ -52,7 +55,7 @@
     import { defineComponent, onMounted, ref, reactive, toRef } from 'vue';
     import axios from 'axios';
     import qs from "query-string";
-    import {notification} from "ant-design-vue";
+    import {message, notification} from "ant-design-vue";
 
     interface DataItem {
       key: number;
@@ -68,29 +71,58 @@
             console.log("setup");
             const dataSource = ref(data);
             const newValue = ref<string>('');
+            const visible = ref<boolean>(false);
+
             const onSearch = (key: number) => {
                 console.log('or use this.value', newValue.value);
                 const tempData = dataSource.value.filter(item => item.key == key);
+                const tempData2: DataItem = {
+                  key: tempData[0].key,
+                  name: tempData[0].name,
+                  value: tempData[0].value,
+                  date: tempData[0].date
+                };
+
                 if(newValue.value!=''){
-                  tempData[0].value = newValue.value;
+                  tempData2.value = newValue.value;
                   axios.post("http://127.0.0.1:8880/model",
-                      tempData[0]
+                      tempData2
                   ).then(
+                      (response) => {
+                        const data = response.data;
+                        const status = response.status;
+                        if(status!=200){
+                          message.error('服务器错误');
+                        }
+                        else if(data=='Success'){
+                          message.success('上传成功');
+                          refresh();
+                        }
+                        else{
+                          message.error('上传失败');
+                        }
+                      }
                   );
                 }
-            };
 
-            const visible = ref<boolean>(false);
+            };
+          const onClick = () => {
+            refresh();
+          }
+            const refresh = () =>{
+              axios.get("http://127.0.0.1:8880/attribute",
+              ).then(
+                  (response) => {
+                    const data = response.data["a"];
+                    console.log(data);
+                    dataSource.value = data;
+                  }
+              );
+            }
+
 
           onMounted(() => {
-            axios.get("http://127.0.0.1:8880/attribute",
-            ).then(
-                (response) => {
-                  const data = response.data["a"];
-                  console.log(data);
-                  dataSource.value = data;
-                }
-            );
+            refresh();
           });
             const hide = () => {
                 visible.value = false;
@@ -107,7 +139,8 @@
                 hide,
                 visible,
                 newValue,
-                onSearch
+                onSearch,
+                onClick
             }
         }
 
