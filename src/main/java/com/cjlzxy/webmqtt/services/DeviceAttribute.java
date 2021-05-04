@@ -41,7 +41,7 @@ public class DeviceAttribute {
 
     public int getIndexById(String id) {
         for(int i=0; i<a.size(); ++i) {
-            if(a.get(i).getId() == id) {
+            if(a.get(i).getId().equals(id)) {
                 return i;
             }
         }

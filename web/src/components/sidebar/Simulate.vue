@@ -78,8 +78,16 @@ export default defineComponent({
     });
     const onChange = (id: string) =>{
       const tempData = dataSource.value.filter(item => item.id == id);
+      const tempData2: DataItem = {
+        key: tempData[0].key,
+        id: tempData[0].id,
+        type: tempData[0].type,
+        name: tempData[0].name,
+        checked: !tempData[0].checked,
+        interval: tempData[0].interval
+      };
       axios.post("http://127.0.0.1:8880/timer",
-          tempData
+          tempData2
       ).then(
           (response) => {
             const data = response.data;

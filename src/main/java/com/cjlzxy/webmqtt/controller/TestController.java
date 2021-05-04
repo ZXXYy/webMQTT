@@ -69,6 +69,8 @@ class Mqtt5PostPropertyMessageListener implements IMqttMessageListener {
     }
 }
 
+
+
 @RestController
 public class TestController {
 
@@ -90,12 +92,55 @@ public class TestController {
     }
 
     public static DeviceInfo deviceInfo;
-    private MqttSign sign;
-    private MqttClient sampleClient;
-    private IMqttToken iMqttToken;
+    private static MqttSign sign;
+    private static MqttClient sampleClient;
+    private static IMqttToken iMqttToken;
     public static DeviceAttribute deviceAttribute = new DeviceAttribute();
-    private SimpleDateFormat tempDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static SimpleDateFormat tempDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private IMqttMessageListener[] subscriptionListeners;
+    class myThread implements Runnable{
+        String type;
+        String id;
+        String value;
+        int interval;
+        int index;
+
+        public myThread(String type, String id, String value, int interval, int index) {
+            this.type = type;
+            this.id = id;
+            this.value = value;
+            this.interval = interval;
+            this.index = index;
+        }
+
+        @Override
+        public void run() {
+            int cnt = 0;
+            int maxcnt = 50;
+            while(cnt<maxcnt) {
+                if(type.equals("double") || type.equals("float")) {
+                    Float val = Float.parseFloat(value);
+                    val += (int) (Math.random()*10-5);
+                    value = String.valueOf(val);
+                }
+                else if(type.equals("int32") || type.equals("int")) {
+                    int val = Integer.parseInt(value);
+                    val += (int) (Math.random()*10-5);
+                    value = String.valueOf(val);
+                }
+                String res = upload(id, value);
+                if(res.equals("Fail3")) break;
+                cnt++;
+                try {
+                    Thread.currentThread().sleep(1000*interval);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            deviceAttribute.getA().get(index).setChecked(false);
+            deviceAttribute.getA().get(index).setInterval(0);
+        }
+    }
 
     @RequestMapping(value = "/connect", method = RequestMethod.POST)
     public String connect(@RequestBody Map<String, String> params) {
@@ -269,11 +314,11 @@ public class TestController {
     public String UploadByTime(@RequestBody Map<String, String> params) {
         int interval = Integer.parseInt(params.get("interval"));
         String id = params.get("id");
-        String ck = params.get("checked");
+        boolean ck = Boolean.parseBoolean(params.get("checked"));
 
         int index = deviceAttribute.getIndexById(id);
         if(index==-1) return "Fail";
-        if(ck.equals("false")) {
+        if(!ck) {
             deviceAttribute.getA().get(index).setInterval(0);
             return "Fail";
         }
@@ -282,33 +327,11 @@ public class TestController {
         deviceAttribute.getA().get(index).setChecked(ck);
         deviceAttribute.getA().get(index).setInterval(interval);
 
-        if(type.equals("double") || type.equals("float")) {
-            Float val = Float.parseFloat(value);
-            val += (int) (Math.random()*10-5);
-            value = String.valueOf(val);
-        }
-        else if(type.equals("int32") || type.equals("int")) {
-            int val = Integer.parseInt(value);
-            val += (int) (Math.random()*10-5);
-            value = String.valueOf(val);
-        }
-        int cnt = 0;
-        int maxcnt = 50;
+        myThread t1 = new myThread(type, id, value, interval, index);
+        Thread t = new Thread(t1);
+        t.start();
 
-        while(cnt<maxcnt) {
-            String res = upload(id, value);
-            if(res.equals("Fail")) break;
-            cnt++;
-            try {
-                Thread.currentThread().sleep(1000*interval);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        deviceAttribute.getA().get(index).setChecked("false");
-        deviceAttribute.getA().get(index).setInterval(0);
-        if(cnt>=maxcnt) return "Success";
-        return "Fail";
+        return "Success";
     }
 
     public boolean subscribe(String topicReply) {
@@ -327,7 +350,7 @@ public class TestController {
         }
     }
 
-    public String upload(String identifier, String value) {
+    public static String upload(String identifier, String value) {
         String topic = "/sys/" + deviceInfo.getProductKey() + "/" + deviceInfo.getDeviceName() + "/thing/event/property/post";
         String content = "{\"id\":\"1\",\"version\":\"1.0\",\"params\":{\"" + identifier + "\":" + value + "}}";
         MqttMessage message = new MqttMessage(content.getBytes());

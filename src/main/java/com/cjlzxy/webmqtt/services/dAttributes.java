@@ -8,7 +8,7 @@ public class dAttributes {
     private String type;
     private String value = "0";
     private String date;
-    private String checked = "false";
+    private boolean checked = false;
     private int interval = 0;
     private int key;
 
@@ -20,11 +20,11 @@ public class dAttributes {
         this.interval = interval;
     }
 
-    public String getChecked() {
+    public boolean isChecked() {
         return checked;
     }
 
-    public void setChecked(String checked) {
+    public void setChecked(boolean checked) {
         this.checked = checked;
     }
 

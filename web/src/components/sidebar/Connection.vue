@@ -80,7 +80,7 @@
             const rules = {
                 port: [{ required: true, message: 'Please input Broker port', trigger: 'blur' }],
                 productKey: [{ required: true, message: 'Please input productKey', trigger: 'blur'}],
-                productSecret: [{required: true, message: 'Please input productSecret', trigger: 'blur'}],
+                // productSecret: [{required: true, message: 'Please input productSecret', trigger: 'blur'}],
                 deviceName: [{required: true, message: 'Please input deviceName', trigger: 'blur'}],
                 deviceSecret: [{required: true, message: 'Please input deviceSecret', trigger: 'blur'}],
 
